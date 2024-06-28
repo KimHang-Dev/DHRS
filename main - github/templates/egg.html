@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>egg</title>
+</head>
+<body>
+    <div class="Description">   
+        <div id="Description">
+            <h5 id="Description" tabindex="-1">Description</h5><hr>
+            <p>날아다니는 글자들을 멈춰서 전체 문자열을 알아내세요! 플래그 형식은 HJ{전체 문자열} 입니다.<p>
+            <p>
+                "플래그에 포함된 알파벳 중" <code>h</code>","<code>s</code>","<code>e</code>"는 모두 소문자입니다."<br>
+                "플래그에 포함된 알파벳 중" <code>r</code>","<code>g</code>","<code>b</code>"는 모두 소문자입니다."<hr>
+            </p>
+        </dv>
+    </div>
+    <form>
+        <label for="flag-input">"Flag 입력"</label>
+        <div class="actions">
+            <input id="flag-input" type="text" placeholder="플래그 형식을 참고" class="auth-input form-control" data-gtm-form-interact-field-id="0">
+            <button type="submit" class="btn btn-primary mt-3">제출하기</button>
+        </div>
+    </form>
+
+    <div id="box" style="display: flex; overflow: hidden;">
+        <img src="../static/img/10.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/7.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/8.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/2.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/9.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/5.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/11.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/6.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/12.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/3.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/0.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/4.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+        <img src="../static/img/1.jpg" style="display: block; width: 10px; height: 10px; transform: translateX(0px);">
+    </div>
+
+    <style type="text/css">
+        body{
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            padding: 0px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        #box{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 90%;
+            height:100%;
+        }
+    </style>
+
+    <script type="text/javascript">
+        const imgs = document.querySelectorAll('#box img');
+        const numImgs = imgs.length;
+        const animationDuration = 150; // Animation duration in milliseconds
+
+        // Initialize image positions
+        for (let i = 0; i < numImgs; i++) {
+            imgs[i].style.transform = `translateX(${Math.random() * 100}vw)`;
+        }
+
+        // Function to animate images
+        function animateImages() {
+            for (let i = 0; i < numImgs; i++) {
+                const img = imgs[i];
+                const startPos = parseFloat(img.style.transform.match(/\d+/)[0]);
+                const endPos = -50; // End position off the screen
+
+                let startTime;
+                function move(currentTime) {
+                    if (!startTime) startTime = currentTime;
+                    const progress = currentTime - startTime;
+                    const newPos = startPos - (progress / animationDuration) * (startPos - endPos);
+                    img.style.transform = `translateX(${newPos}vw)`;
+
+                    if (progress < animationDuration) {
+                        requestAnimationFrame(move);
+                    } else {
+                        // Reset image position to start again
+                        img.style.transform = `translateX(${Math.random() * 100}vw)`;
+                        startTime = null;
+                        requestAnimationFrame(move);
+                    }
+                }
+                requestAnimationFrame(move);
+            }
+        }
+
+        // Start animation
+        animateImages();
+    </script>
+</body>
+</html>
